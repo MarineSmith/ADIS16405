@@ -24,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
 	private static final String ACTION_USB_PERMISSION = "com.example.adis16405.USB_PERMISSION";
 	private List<EditText> mEditText_List = new ArrayList<EditText>();
 	private UsbManager mUsbManager;
+	private Data_TR mData_TR;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +62,17 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	@Override
+	protected void onPause(){
+		super.onPause();
+		//this.unregisterReceiver(mBroadcastReceiver);
+	}
+	
+	@Override
 	protected void onStop(){
 		super.onStop();
 		this.unregisterReceiver(mBroadcastReceiver);
+		//mData_TR.rec_thread_latch = false;
+		//mData_TR.rec_thread.interrupt();
 	}
 	
 	private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver(){
@@ -77,7 +86,7 @@ public class MainActivity extends ActionBarActivity {
 					UsbDevice mUsbDevice = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
 					if(intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)&&(mUsbDevice!=null)){
 						/***/
-						Data_TR mData_TR = new Data_TR(mUsbManager,mUsbDevice,mEditText_List);
+						mData_TR = new Data_TR(mUsbManager,mUsbDevice,mEditText_List);
 						if(!mData_TR.initialize()){
 							Toast.makeText(MainActivity.this, "Sorry! USB device may not support your mobile", Toast.LENGTH_LONG).show();
 						}else{

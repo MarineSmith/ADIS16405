@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 public class Item {
 	
-	private String[] item_name = {"SUPPLY_OUT","XGYRO_OUT","YGYRO_OUT","ZGYRO_OUT","XACCL_OUT","YACCL_OUT","ZACCL_OUT","XMAGN_OUT","YMAGN_OUT","ZMAGN_OUT","TEMP_OUT","AUX_ADC"};
-	private String[] item_unit = {"mV","/sec","/sec","/sec","mg","mg","mg","mGAUSS","mGAUSS","mGAUSS","degree","mV"};
+	private String[] item_name = {"SUPPLY_OUT","XGYRO_OUT","YGYRO_OUT","ZGYRO_OUT","XACCL_OUT","YACCL_OUT","ZACCL_OUT","XMAGN_OUT","YMAGN_OUT","ZMAGN_OUT","TEMP_OUT","AUX_ADC","roll","pitch","yaw"};
+	private String[] item_unit = {"V","degree/sec","degree/sec","degree/sec","g","g","g","TELSA","TELSA","TELSA","CELSIUS","V","degree","degree","degree"};
 	public List<EditText> mEditText_List = new ArrayList<EditText>();
 	private Context mContext;
 	
@@ -28,7 +28,7 @@ public class Item {
 		mLinearLayout.setLayoutParams(mLayoutParams);
 		mLinearLayout.setOrientation(LinearLayout.VERTICAL);
 		
-		mLinearLayout.addView(mTableLayout(12));
+		mLinearLayout.addView(mTableLayout(18));
 		
 		return mLinearLayout;
 		
@@ -37,7 +37,7 @@ public class Item {
 	private TableLayout mTableLayout(int count_){
 		TableLayout mTableLayout = new TableLayout(mContext);
 		mTableLayout.setStretchAllColumns(true);
-		for(int i=0;i<12;i++){
+		for(int i=0;i<15;i++){
 			mTableLayout.addView(mTableRow(i));
 		}
 		return mTableLayout;
